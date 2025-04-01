@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shmerg</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-item:hover {
+            opacity: 1;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .headline {
+            font-size: 80px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .subheadline {
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 50px;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            .headline {
+                font-size: 40px;
+            }
+            
+            .subheadline {
+                font-size: 14px;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            &#x2732;
+        </div>
+        <div class="nav-menu">
+            <a href="chippy.html" class="nav-item">Chippy</a>
+            <a href="#" class="nav-item">Community</a>
+            <a href="#" class="nav-item">Join Us</a>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <h1 class="headline">
+            Shmergs<br>
+            Will<br>
+            Rise
+        </h1>
+        <p class="subheadline">
+            just a shmerg...
+        </p>
+    </div>
+</body>
+</html>
