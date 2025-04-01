@@ -19,6 +19,31 @@
             font-family: 'Roboto', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: all 0.5s;
+        }
+        
+        body.evil-mode {
+            background-color: #200000;
+            color: #ff0000;
+            filter: contrast(150%) brightness(70%) saturate(200%);
+        }
+        
+        body.evil-mode::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.3),
+                rgba(0, 0, 0, 0.3) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 10000;
         }
         
         header {
@@ -30,11 +55,24 @@
             align-items: center;
             padding: 20px 40px;
             z-index: 1000;
+            transition: all 0.5s;
+        }
+        
+        .evil-mode header {
+            background-color: rgba(50, 0, 0, 0.9);
+            border-bottom: 1px solid #ff0000;
         }
         
         .logo {
             font-size: 24px;
             font-weight: bold;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+        
+        .evil-mode .logo {
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
         }
         
         .nav-menu {
@@ -49,11 +87,22 @@
             font-size: 14px;
             letter-spacing: 1px;
             opacity: 0.8;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
+            cursor: pointer;
         }
         
         .nav-item:hover {
             opacity: 1;
+        }
+        
+        .evil-mode .nav-item {
+            color: #ff3333;
+            opacity: 0.9;
+        }
+        
+        .evil-mode .nav-item:hover {
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
         }
         
         .main-content {
@@ -64,6 +113,11 @@
             min-height: 100vh;
             text-align: center;
             padding: 0 20px;
+            transition: all 0.5s;
+        }
+        
+        .evil-mode .main-content {
+            color: #ff3333;
         }
         
         .headline {
@@ -72,6 +126,12 @@
             line-height: 1.1;
             margin-bottom: 20px;
             text-transform: uppercase;
+            transition: all 0.5s;
+        }
+        
+        .evil-mode .headline {
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
         }
         
         .subheadline {
@@ -81,6 +141,63 @@
             opacity: 0.8;
             max-width: 800px;
             margin: 0 auto;
+            transition: all 0.5s;
+        }
+        
+        .evil-mode .subheadline {
+            color: #ff6666;
+            opacity: 0.9;
+        }
+        
+        .hall-content {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hall-image {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 30px;
+            transition: all 0.5s;
+            border-radius: 10px;
+            filter: none;
+        }
+        
+        .evil-mode .hall-image {
+            transform: scale(1.1) rotate(3deg);
+            filter: contrast(150%) brightness(80%) sepia(50%) hue-rotate(-10deg) saturate(300%);
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+        
+        .evil-button {
+            background-color: #ff3300;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .evil-button:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+        }
+        
+        .evil-mode .evil-button {
+            background-color: #990000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            color: #ff9999;
         }
         
         @media (max-width: 768px) {
@@ -90,6 +207,11 @@
             
             .nav-menu {
                 gap: 15px;
+            }
+            
+            .hall-image {
+                width: 250px;
+                height: 250px;
             }
         }
         
@@ -109,22 +231,27 @@
             .nav-menu {
                 gap: 10px;
             }
+            
+            .hall-image {
+                width: 200px;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">
+        <div class="logo" id="logo">
             &#x2732;
         </div>
         <div class="nav-menu">
-            <a href="chippy" class="nav-item">Chippy</a>
-            <a href="#" class="nav-item">Community</a>
-            <a href="#" class="nav-item">Hall</a>
+            <a href="#" class="nav-item" id="chippy-link">Chippy</a>
+            <a href="#" class="nav-item" id="community-link">Community</a>
+            <a href="#" class="nav-item" id="hall-link">Hall</a>
         </div>
     </header>
     
-    <div class="main-content">
+    <div class="main-content" id="home-content">
         <h1 class="headline">
             Shmergs<br>
             Will<br>
@@ -134,5 +261,67 @@
             just a shmerg...
         </p>
     </div>
+    
+    <div class="hall-content" id="hall-content">
+        <img src="koslist.png" alt="Normal Hall Image" class="hall-image" id="hall-image">
+        <h2 class="headline">The Hall</h2>
+        <p class="subheadline">Welcome to the sacred hall of shmergs</p>
+        <button class="evil-button" id="evil-button">Evil Mode</button>
+    </div>
+    
+    <audio id="evil-audio" preload="auto">
+        <source src="Manipulating His Stock.mp3" type="audio/mp3">
+    </audio>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeContent = document.getElementById('home-content');
+            const hallContent = document.getElementById('hall-content');
+            const hallLink = document.getElementById('hall-link');
+            const logo = document.getElementById('logo');
+            const evilButton = document.getElementById('evil-button');
+            const hallImage = document.getElementById('hall-image');
+            const evilAudio = document.getElementById('evil-audio');
+            const body = document.body;
+            const normalImageSrc = "koslist.png";
+            const evilImageSrc = "deepfried_1743548887514.jpg";
+            
+            homeContent.style.display = 'flex';
+            hallContent.style.display = 'none';
+            
+            logo.addEventListener('click', function() {
+                homeContent.style.display = 'flex';
+                hallContent.style.display = 'none';
+            });
+
+            hallLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                homeContent.style.display = 'none';
+                hallContent.style.display = 'flex';
+            });
+            
+            let evilMode = false;
+            evilButton.addEventListener('click', function() {
+                evilMode = !evilMode;
+                
+                if (evilMode) {
+                    body.classList.add('evil-mode');
+                    hallContent.classList.add('evil-mode');
+                    evilButton.textContent = 'Normal Mode';
+                    hallImage.src = evilImageSrc;
+                    hallImage.alt = "Evil Hall Image";
+                    evilAudio.play();
+                } else {
+                    body.classList.remove('evil-mode');
+                    hallContent.classList.remove('evil-mode');
+                    evilButton.textContent = 'Evil Mode';
+                    hallImage.src = normalImageSrc;
+                    hallImage.alt = "Normal Hall Image";
+                    evilAudio.pause();
+                    evilAudio.currentTime = 0;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
