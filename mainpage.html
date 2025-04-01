@@ -268,5 +268,60 @@
         <p class="subheadline">Welcome to the sacred hall of shmergs</p>
         <button class="evil-button" id="evil-button">Evil Mode</button>
     </div>
+    
+    <audio id="evil-audio" preload="auto">
+        <source src="Manipulating His Stock.mp3" type="audio/mp3">
+    </audio>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeContent = document.getElementById('home-content');
+            const hallContent = document.getElementById('hall-content');
+            const hallLink = document.getElementById('hall-link');
+            const logo = document.getElementById('logo');
+            const evilButton = document.getElementById('evil-button');
+            const hallImage = document.getElementById('hall-image');
+            const evilAudio = document.getElementById('evil-audio');
+            const body = document.body;
+            const normalImageSrc = "koslist.png";
+            const evilImageSrc = "deepfried_1743548887514.jpg";
+            
+            homeContent.style.display = 'flex';
+            hallContent.style.display = 'none';
+            
+            logo.addEventListener('click', function() {
+                homeContent.style.display = 'flex';
+                hallContent.style.display = 'none';
+            });
+
+            hallLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                homeContent.style.display = 'none';
+                hallContent.style.display = 'flex';
+            });
+            
+            let evilMode = false;
+            evilButton.addEventListener('click', function() {
+                evilMode = !evilMode;
+                
+                if (evilMode) {
+                    body.classList.add('evil-mode');
+                    hallContent.classList.add('evil-mode');
+                    evilButton.textContent = 'Normal Mode';
+                    hallImage.src = evilImageSrc;
+                    hallImage.alt = "Evil Hall Image";
+                    evilAudio.play();
+                } else {
+                    body.classList.remove('evil-mode');
+                    hallContent.classList.remove('evil-mode');
+                    evilButton.textContent = 'Evil Mode';
+                    hallImage.src = normalImageSrc;
+                    hallImage.alt = "Normal Hall Image";
+                    evilAudio.pause();
+                    evilAudio.currentTime = 0;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
