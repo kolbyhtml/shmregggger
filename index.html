@@ -48,6 +48,18 @@
             transform: scale(1.05);
         }
 
+        /* Invisible button in the corner */
+        .invisible-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -63,7 +75,10 @@
         <img src="202503312314_online-video-cutter.com-ezgif.com-video-to-gif-converter.gif" alt="gif">
     </div>
     
-    <button class="enter-button">ENTER</button>
+    <button class="enter-button" onclick="window.location.href='subpage.html'">ENTER</button>
+
+    <!-- Invisible button -->
+    <button class="invisible-button" onclick="window.location.href='Nardbone.html'"></button>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -80,10 +95,6 @@
                     button.style.opacity = 1;
                 }, 700);
             }, 100);
-        });
-        
-        document.querySelector('.enter-button').addEventListener('click', function() {
-            alert('I fucked my wife while beating my son');
         });
     </script>
 </body>
