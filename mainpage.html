@@ -200,6 +200,128 @@
             color: #ff9999;
         }
         
+        /* Community Content Styles */
+        .community-content {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 100px 20px 60px;
+            transition: all 0.5s;
+        }
+        
+        .community-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .member-box {
+            width: 280px;
+            height: 380px;
+            background-color: rgba(30, 30, 30, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+        }
+        
+        .member-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .member-box.active {
+            animation: pulse 0.5s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .member-image {
+            width: 100%;
+            height: 220px;
+            background-color: #333;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .member-name {
+            font-size: 32px;
+            font-weight: 800;
+            margin-top: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.5s;
+        }
+        
+        .member-description {
+            font-size: 14px;
+            opacity: 0.7;
+            padding: 0 20px;
+            margin-top: 15px;
+            max-width: 260px;
+            transition: all 0.5s;
+        }
+        
+        .evil-mode .member-box {
+            background-color: rgba(50, 0, 0, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(100, 0, 0, 0.3);
+        }
+        
+        .evil-mode .member-box:hover {
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.3);
+        }
+        
+        .evil-mode .member-image {
+            filter: contrast(120%) brightness(60%) sepia(30%) hue-rotate(-10deg);
+        }
+        
+        .evil-mode .member-name {
+            color: #ff0000;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+        }
+        
+        .evil-mode .member-description {
+            color: #ff6666;
+        }
+        
+        @media (max-width: 900px) {
+            .community-members {
+                gap: 30px;
+            }
+            
+            .member-box {
+                width: 240px;
+                height: 340px;
+            }
+            
+            .member-image {
+                height: 180px;
+            }
+            
+            .member-name {
+                font-size: 28px;
+                margin-top: 25px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .headline {
                 font-size: 50px;
@@ -236,6 +358,25 @@
                 width: 200px;
                 height: 200px;
             }
+            
+            .member-box {
+                width: 220px;
+                height: 320px;
+            }
+            
+            .member-image {
+                height: 160px;
+            }
+            
+            .member-name {
+                font-size: 24px;
+                margin-top: 20px;
+            }
+            
+            .member-description {
+                font-size: 12px;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -245,7 +386,7 @@
             &#x2732;
         </div>
         <div class="nav-menu">
-            <a href="chippy" class="nav-item" id="chippy-link">Chippy</a>
+            <a href="" class="nav-item" id="chippy-link">Chippy</a>
             <a href="#" class="nav-item" id="community-link">Community</a>
             <a href="#" class="nav-item" id="hall-link">Hall</a>
         </div>
@@ -269,6 +410,38 @@
         <button class="evil-button" id="evil-button">Evil Mode</button>
     </div>
     
+    <div class="community-content" id="community-content">
+        <h2 class="headline">Community</h2>
+        <p class="subheadline">Meet our shmerg community members</p>
+        <div class="community-members">
+            <div class="member-box" id="chippy-box">
+                <img src="yakub.png" alt="Chippy" class="member-image">
+                <div class="member-name">Chippy</div>
+                <div class="member-description">ThugBorea Super Solider/Benito Floydilini</div>
+            </div>
+            <div class="member-box" id="jack-box">
+                <img src="togif.png" alt="Jack" class="member-image">
+                <div class="member-name">Jack</div>
+                <div class="member-description">Low Tier Nigger Chud</div>
+            </div>
+            <div class="member-box" id="nardbone-box">
+                <img src="yakkkk.png" alt="Nardbone" class="member-image">
+                <div class="member-name">Nardbone</div>
+                <div class="member-description">ThugBorea Overseer</div>
+            </div>
+            <div class="member-box" id="kolby-box">
+                <img src="bruu.jpg" alt="Kolby" class="member-image">
+                <div class="member-name">Kolby</div>
+                <div class="member-description">Lord Shmerg</div>
+            </div>
+            <div class="member-box" id="misanthropy-box">
+                <img src="middle.jpg" alt="Misanthropy" class="member-image">
+                <div class="member-name">Misanthropy</div>
+                <div class="member-description">Misanthropy_556</div>
+            </div>
+        </div>
+    </div>
+    
     <audio id="evil-audio" preload="auto">
         <source src="Manipulating His Stock.mp3" type="audio/mp3">
     </audio>
@@ -277,7 +450,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const homeContent = document.getElementById('home-content');
             const hallContent = document.getElementById('hall-content');
+            const communityContent = document.getElementById('community-content');
             const hallLink = document.getElementById('hall-link');
+            const communityLink = document.getElementById('community-link');
             const logo = document.getElementById('logo');
             const evilButton = document.getElementById('evil-button');
             const hallImage = document.getElementById('hall-image');
@@ -286,18 +461,41 @@
             const normalImageSrc = "koslist.png";
             const evilImageSrc = "deepfried_1743548887514.jpg";
             
+            const memberBoxes = document.querySelectorAll('.member-box');
+            
             homeContent.style.display = 'flex';
             hallContent.style.display = 'none';
+            communityContent.style.display = 'none';
             
             logo.addEventListener('click', function() {
                 homeContent.style.display = 'flex';
                 hallContent.style.display = 'none';
+                communityContent.style.display = 'none';
             });
 
             hallLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 homeContent.style.display = 'none';
                 hallContent.style.display = 'flex';
+                communityContent.style.display = 'none';
+            });
+            
+            communityLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                homeContent.style.display = 'none';
+                hallContent.style.display = 'none';
+                communityContent.style.display = 'flex';
+            });
+            
+            memberBoxes.forEach(box => {
+                box.addEventListener('click', function() {
+                    memberBoxes.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    setTimeout(() => {
+                        this.classList.remove('active');
+                    }, 500);
+                });
             });
             
             let evilMode = false;
@@ -307,6 +505,7 @@
                 if (evilMode) {
                     body.classList.add('evil-mode');
                     hallContent.classList.add('evil-mode');
+                    communityContent.classList.add('evil-mode');
                     evilButton.textContent = 'Normal Mode';
                     hallImage.src = evilImageSrc;
                     hallImage.alt = "Evil Hall Image";
@@ -314,6 +513,7 @@
                 } else {
                     body.classList.remove('evil-mode');
                     hallContent.classList.remove('evil-mode');
+                    communityContent.classList.remove('evil-mode');
                     evilButton.textContent = 'Evil Mode';
                     hallImage.src = normalImageSrc;
                     hallImage.alt = "Normal Hall Image";
