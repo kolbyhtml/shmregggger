@@ -232,10 +232,11 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            transition: all 0.4s;
             position: relative;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                        box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
         .member-box:hover {
@@ -244,13 +245,24 @@
         }
         
         .member-box.active {
-            animation: pulse 0.5s;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+            transform: translateY(-3px);
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                        box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .evil-mode .member-box {
+            background-color: rgba(50, 0, 0, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(100, 0, 0, 0.3);
+        }
+        
+        .evil-mode .member-box:hover {
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.3);
+        }
+        
+        .evil-mode .member-box.active {
+            box-shadow: 0 12px 24px rgba(255, 0, 0, 0.35);
         }
         
         .member-image {
@@ -277,16 +289,6 @@
             margin-top: 15px;
             max-width: 260px;
             transition: all 0.5s;
-        }
-        
-        .evil-mode .member-box {
-            background-color: rgba(50, 0, 0, 0.8);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            box-shadow: 0 10px 20px rgba(100, 0, 0, 0.3);
-        }
-        
-        .evil-mode .member-box:hover {
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.3);
         }
         
         .evil-mode .member-image {
@@ -452,92 +454,113 @@
     </audio>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const homeContent = document.getElementById('home-content');
-            const hallContent = document.getElementById('hall-content');
-            const communityContent = document.getElementById('community-content');
-            const hallLink = document.getElementById('hall-link');
-            const communityLink = document.getElementById('community-link');
-            const logo = document.getElementById('logo');
-            const evilButton = document.getElementById('evil-button');
-            const hallImage = document.getElementById('hall-image');
-            const evilAudio = document.getElementById('evil-audio');
-            const body = document.body;
-            const normalImageSrc = "koslist.png";
-            const evilImageSrc = "deepfried_1743548887514.jpg";
-            
-            const memberBoxes = document.querySelectorAll('.member-box');
-            
-            homeContent.style.display = 'flex';
-            hallContent.style.display = 'none';
-            communityContent.style.display = 'none';
-            
-            logo.addEventListener('click', function() {
-                homeContent.style.display = 'flex';
-                hallContent.style.display = 'none';
-                communityContent.style.display = 'none';
-            });
+       document.addEventListener('DOMContentLoaded', function() {
+    const homeContent = document.getElementById('home-content');
+    const hallContent = document.getElementById('hall-content');
+    const communityContent = document.getElementById('community-content');
+    const hallLink = document.getElementById('hall-link');
+    const communityLink = document.getElementById('community-link');
+    const logo = document.getElementById('logo');
+    const evilButton = document.getElementById('evil-button');
+    const hallImage = document.getElementById('hall-image');
+    const evilAudio = document.getElementById('evil-audio');
+    const body = document.body;
+    const normalImageSrc = "koslist.png";
+    const evilImageSrc = "deepfried_1743548887514.jpg";
+    
+    const memberLinks = {
+        'chippy-box': 'https://shmerg.lol',
+        'jack-box': 'https://shmerg.lol',
+        'nardbone-box': 'https://shmerg.lol',
+        'kolby-box': 'https://shmerg.lol',
+        'misanthropy-box': 'https://shmerg.lol',
+        'solaire-box': 'https://vk.link/thebase202'
+    };
+    
+    const memberBoxes = document.querySelectorAll('.member-box');
+    
+    homeContent.style.display = 'flex';
+    hallContent.style.display = 'none';
+    communityContent.style.display = 'none';
+    
+    logo.addEventListener('click', function() {
+        homeContent.style.display = 'flex';
+        hallContent.style.display = 'none';
+        communityContent.style.display = 'none';
+    });
 
-            hallLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                homeContent.style.display = 'none';
-                hallContent.style.display = 'flex';
-                communityContent.style.display = 'none';
-            });
-            
-            communityLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                homeContent.style.display = 'none';
-                hallContent.style.display = 'none';
-                communityContent.style.display = 'flex';
-            });
-            
-            memberBoxes.forEach(box => {
-                box.addEventListener('click', function() {
-                    memberBoxes.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
+    hallLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        homeContent.style.display = 'none';
+        hallContent.style.display = 'flex';
+        communityContent.style.display = 'none';
+    });
+    
+    communityLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        homeContent.style.display = 'none';
+        hallContent.style.display = 'none';
+        communityContent.style.display = 'flex';
+    });
+    
+    memberBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+            if (!this.classList.contains('processing')) {
+                this.classList.add('processing');
+                this.classList.add('active');
+
+                const url = memberLinks[this.id];
+                
+                setTimeout(() => {
+                    this.classList.remove('active');
                     
                     setTimeout(() => {
-                        this.classList.remove('active');
-                    }, 500);
-                });
-            });
-            
-            let evilMode = false;
-            evilButton.addEventListener('click', function() {
-                evilMode = !evilMode;
-                
-                if (evilMode) {
-                    body.classList.add('evil-mode');
-                    hallContent.classList.add('evil-mode');
-                    communityContent.classList.add('evil-mode');
-                    evilButton.textContent = 'Normal Mode';
-                    hallImage.src = evilImageSrc;
-                    hallImage.alt = "Evil Hall Image";
-                    evilAudio.play();
-                } else {
-                    body.classList.remove('evil-mode');
-                    hallContent.classList.remove('evil-mode');
-                    communityContent.classList.remove('evil-mode');
-                    evilButton.textContent = 'Evil Mode';
-                    hallImage.src = normalImageSrc;
-                    hallImage.alt = "Normal Hall Image";
-                    evilAudio.pause();
-                    evilAudio.currentTime = 0;
-                }
-            });
+                        this.classList.remove('processing');
 
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                
-                if (e.target.closest('a, button, input, .member-box')) {
-                    return;
-                }
-                const predefinedSearch = "shmerg child porn";
-                
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(predefinedSearch)}`, '_blank');
-            });
+                        if (url) {
+                            window.location.href = url;
+                        }
+                    }, 200);
+                }, 200);
+            }
         });
+    });
+    
+    let evilMode = false;
+    evilButton.addEventListener('click', function() {
+        evilMode = !evilMode;
+        
+        if (evilMode) {
+            body.classList.add('evil-mode');
+            hallContent.classList.add('evil-mode');
+            communityContent.classList.add('evil-mode');
+            evilButton.textContent = 'Normal Mode';
+            hallImage.src = evilImageSrc;
+            hallImage.alt = "Evil Hall Image";
+            evilAudio.play();
+        } else {
+            body.classList.remove('evil-mode');
+            hallContent.classList.remove('evil-mode');
+            communityContent.classList.remove('evil-mode');
+            evilButton.textContent = 'Evil Mode';
+            hallImage.src = normalImageSrc;
+            hallImage.alt = "Normal Hall Image";
+            evilAudio.pause();
+            evilAudio.currentTime = 0;
+        }
+    });
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        
+        if (e.target.closest('a, button, input, .member-box')) {
+            return;
+        }
+        const predefinedSearch = "shmerg child porn";
+        
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(predefinedSearch)}`, '_blank');
+    });
+});
     </script>
 </body>
 </html>
